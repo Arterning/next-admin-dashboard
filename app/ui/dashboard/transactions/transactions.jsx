@@ -1,10 +1,16 @@
 import Image from "next/image";
 import styles from "./transactions.module.css";
+import Link from "next/link";
 
 const Transactions = () => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Latest Transactions</h2>
+      <div className={styles.top}>
+        <Link href="/dashboard/transactions/add">
+            <button className={styles.addButton}>Add New</button>
+        </Link>
+      </div>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -46,7 +52,7 @@ const Transactions = () => {
                   height={40}
                   className={styles.userImage}
                 />
-                John Doe
+                Mike Joe
               </div>
             </td>
             <td>
@@ -65,7 +71,7 @@ const Transactions = () => {
                   height={40}
                   className={styles.userImage}
                 />
-                John Doe
+                Durant Doe
               </div>
             </td>
             <td>
@@ -86,7 +92,7 @@ const Transactions = () => {
                   height={40}
                   className={styles.userImage}
                 />
-                John Doe
+                Love Karry
               </div>
             </td>
             <td>

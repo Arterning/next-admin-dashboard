@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { Product, User } from "./models";
+import { Product, Transaction, User } from "./models";
 import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
@@ -153,6 +153,29 @@ export const deleteProduct = async (formData) => {
 
   revalidatePath("/dashboard/products");
 };
+
+export const createTransaction = async (formData) => {
+  const { name, status, amount } =
+    Object.fromEntries(formData);
+    try {
+      connectToDB();
+  
+      const newTransaction = new Transaction({
+        name,
+        status,
+        amount,
+      });
+  
+      await newTransaction.save();
+    } catch (err) {
+      console.log(err);
+      throw new Error("Failed to create transaction!");
+    }
+  
+    revalidatePath("/dashboard/transactions");
+    redirect("/dashboard/transactions");
+}
+
 
 export const authenticate = async (prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
