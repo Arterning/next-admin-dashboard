@@ -50,6 +50,18 @@ export const fetchProducts = async (q, page) => {
   }
 };
 
+
+export const fetchTransaction = async (id) => {
+  try {
+    connectToDB();
+    const transaction = await Transaction.findById(id);
+    return transaction;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch transaction!");
+  }
+};
+
 export const fetchTransactions = async(q, page) => {
   console.log(q);
   const regex = new RegExp(q, "i");

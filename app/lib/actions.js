@@ -192,6 +192,35 @@ export const deleteTransaction = async (formData) => {
 };
 
 
+export const updateTransaction = async (formData) => {
+
+  console.log(formData);
+
+  const { id, name, amount } =
+    Object.fromEntries(formData);
+
+  try {
+    connectToDB();
+
+    const updateFields = {
+      name, amount
+    };
+
+    Object.keys(updateFields).forEach(
+      (key) =>
+        (updateFields[key] === "" || undefined) && delete updateFields[key]
+    );
+
+    await Transaction.findByIdAndUpdate(id, updateFields);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to update transaction!");
+  }
+
+  revalidatePath("/dashboard/transactions");
+  redirect("/dashboard/transactions");
+}
+
 export const authenticate = async (prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
 
