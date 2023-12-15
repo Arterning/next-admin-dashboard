@@ -11,7 +11,7 @@ const Transactions = () => {
             <button className={styles.addButton}>Add New</button>
         </Link>
       </div>
-      <table className={styles.table}>
+      <table className={styles.table} cellPadding={0} cellSpacing={0}>
         <thead>
           <tr>
             <td>Name</td>
