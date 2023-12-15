@@ -206,6 +206,7 @@ export const updateTransaction = async (formData) => {
       name, amount, status
     };
 
+    // 如果某个字段为空字符串或者未定义 那么就删除这个字段 这样我们就不会更新这个字段
     Object.keys(updateFields).forEach(
       (key) =>
         (updateFields[key] === "" || undefined) && delete updateFields[key]
