@@ -59,3 +59,8 @@
 .delete{
   background-color: crimson;
 }
+
+
+.table tr:hover {
+  background-color: #2e374a;
+}

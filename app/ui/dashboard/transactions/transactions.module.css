@@ -63,3 +63,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.table tr:hover {
+  background-color: #2e374a;
+}
