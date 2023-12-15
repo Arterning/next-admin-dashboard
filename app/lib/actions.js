@@ -177,6 +177,21 @@ export const createTransaction = async (formData) => {
 }
 
 
+export const deleteTransaction = async (formData) => {
+  const { id } = Object.fromEntries(formData);
+
+  try {
+    connectToDB();
+    await Transaction.findByIdAndDelete(id);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to delete transaction!");
+  }
+
+  revalidatePath("/dashboard/transactions");
+};
+
+
 export const authenticate = async (prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
 

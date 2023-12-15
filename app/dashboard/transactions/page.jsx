@@ -3,6 +3,7 @@ import styles from "@/app/ui/dashboard/transactions/transactions.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
+import { deleteTransaction } from "@/app/lib/actions";
 
 const TransactionsPage = async ({ searchParams }) => {
     const q = searchParams?.q || "";
@@ -24,6 +25,7 @@ const TransactionsPage = async ({ searchParams }) => {
             <td>Status</td>
             <td>Date</td>
             <td>Amount</td>
+            <td>Action</td>
           </tr>
         </thead>
         <tbody>
@@ -49,6 +51,21 @@ const TransactionsPage = async ({ searchParams }) => {
                         </td>
                         <td>{transaction.createdAt?.toString().slice(4, 16)}</td>
                         <td>${transaction.amount}</td>
+                        <td>
+                          <div className={styles.buttons}>
+                            <Link href={`/dashboard/transactions/${transaction.id}`}>
+                              <button className={`${styles.button} ${styles.view}`}>
+                                View
+                              </button>
+                            </Link>
+                            <form action={deleteTransaction}>
+                              <input type="hidden" name="id" value={transaction.id} />
+                              <button className={`${styles.button} ${styles.delete}`}>
+                                Delete
+                              </button>
+                            </form>
+                          </div>
+                        </td>
                     </tr>
                 ))
             }

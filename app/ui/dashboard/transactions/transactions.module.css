@@ -64,6 +64,29 @@
   justify-content: space-between;
 }
 
+.button{
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--text);
+  border: none;
+  cursor: pointer;
+}
+
+.buttons{
+  display: flex;
+  gap: 10px;
+}
+
+
+.view{
+  background-color: teal;
+}
+
+.delete{
+  background-color: crimson;
+}
+
+
 .table tr:hover {
   background-color: #2e374a;
 }
