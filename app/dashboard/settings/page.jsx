@@ -1,6 +1,8 @@
+import styles from "./page.module.css"
+
 const SettingPage = () => {
     return (
-        <div>SettingPage</div>
+        <div className={styles.container}>SettingPage</div>
     );
 }
 
