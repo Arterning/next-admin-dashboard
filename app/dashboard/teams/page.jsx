@@ -1,7 +1,9 @@
+import style from "./page.module.css"
+
 const TeamPage = () => {
 
     return (
-        <div>
+        <div className={style.container}>
             TeamPage
         </div>
     )
