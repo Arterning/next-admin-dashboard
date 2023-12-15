@@ -196,14 +196,14 @@ export const updateTransaction = async (formData) => {
 
   console.log(formData);
 
-  const { id, name, amount } =
+  const { id, name, amount, status } =
     Object.fromEntries(formData);
 
   try {
     connectToDB();
 
     const updateFields = {
-      name, amount
+      name, amount, status
     };
 
     Object.keys(updateFields).forEach(

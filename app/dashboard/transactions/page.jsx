@@ -46,7 +46,10 @@ const TransactionsPage = async ({ searchParams }) => {
                         </div>
                         </td>
                         <td>
-                            <span className={`${styles.status} ${styles.pending}`}>
+                            <span className={`${styles.status} 
+                                ${transaction.status === "Done" && styles.done}
+                                ${transaction.status === "Pending" && styles.pending}
+                                ${transaction.status === "Cancelled" && styles.cancelled}`}>
                                 {transaction.status}
                             </span>
                         </td>
