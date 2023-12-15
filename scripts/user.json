@@ -1,0 +1,12 @@
+[
+    {
+        "username": "ning",
+        "email": "ning@qq.com",
+        "password": "$2b$10$.6a4d5CmIRR.PBbAb.wVv.rR6DGXEzIaV6XFAPvt6uPKTP1aNnjFK",
+        "img":"https://avatars.githubusercontent.com/u/10969572?v=4",
+        "isAdmin": true,
+        "isActive":true,
+        "phone":23434,
+        "address": "上海市普陀区金沙江路 1518 弄"
+    }
+]
