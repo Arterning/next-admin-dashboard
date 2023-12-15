@@ -4,16 +4,17 @@ import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import { deleteTransaction } from "@/app/lib/actions";
+import Search from "@/app/ui/dashboard/search/search";
 
 const TransactionsPage = async ({ searchParams }) => {
     const q = searchParams?.q || "";
     const page = searchParams?.page || 1;
     const {count, transactions} = await fetchTransactions(q, page);
-    console.log(transactions);
+    // console.log(transactions);
     return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Latest Transactions</h2>
       <div className={styles.top}>
+        <Search placeholder="Search for a transactions..." />
         <Link href="/dashboard/transactions/add">
             <button className={styles.addButton}>Add New</button>
         </Link>
