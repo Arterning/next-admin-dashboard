@@ -6,6 +6,7 @@ import {
   MdSupervisedUserCircle,
   MdShoppingBag,
   MdAttachMoney,
+  MdImage,
   MdWork,
   MdAnalytics,
   MdPeople,
@@ -39,6 +40,11 @@ const menuItems = [
         path: "/dashboard/transactions",
         icon: <MdAttachMoney />,
       },
+      {
+        title: "Media",
+        path: "/dashboard/media",
+        icon: <MdImage />,
+      }
     ],
   },
   {
