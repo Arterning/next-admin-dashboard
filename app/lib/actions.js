@@ -7,6 +7,8 @@ import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
 import { writeFile } from "fs/promises";
+import { unlink } from 'fs/promises';
+
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
@@ -230,6 +232,13 @@ export const deleteFile = async (formData) => {
   const { id } = Object.fromEntries(formData);
   try {
     connectToDB();
+    const file = await File.findById(id);
+    const url = file.url;
+
+    const path = url.replace('/uploads','./public/uploads');
+    // 尝试删除文件
+    await unlink(path);
+
     await File.findByIdAndDelete(id);
   } catch (err) {
     console.log(err);
