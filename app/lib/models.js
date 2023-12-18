@@ -92,13 +92,41 @@ const transactionSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
+const fileSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
+    size: {
+      type: String,
+      required: false,
+    },
+    url: {
+      type: String,
+      required: false,
+    },
+    // pid 表示这个图片和哪个对象相关联
+    pid: {
+      type: String,
+      required: false
+    }
+  },
+  { timestamps: true }
+)
+
+
 export const User = 
   mongoose.models.User || mongoose.model("User", userSchema);
-
-
 
 export const Product =
   mongoose.models.Product || mongoose.model("Product", productSchema);
 
 export const Transaction =
   mongoose.models.Transaction || mongoose.model("Transaction", transactionSchema);
+
+export const File = mongoose.models.File || mongoose.model("File", fileSchema)

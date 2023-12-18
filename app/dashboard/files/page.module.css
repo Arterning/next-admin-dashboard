@@ -1,0 +1,93 @@
+.container{
+    background-color: var(--bgSoft);
+    padding: 20px;
+    border-radius:10px ;
+    margin-top: 20px;
+  }
+  
+  .title{
+    margin-bottom: 20px;
+    font-weight: 200;
+    color: var(--textSoft);
+  }
+  
+  .table{
+    width: 100%;
+  }
+  
+  .table td{
+    padding: 10px;
+  }
+  
+  .user{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .userImage{
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .status{
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+    color: white;
+  }
+  
+  .pending{
+    background-color: #f7cb7375;
+  }
+  
+  .done{
+    background-color: #afd6ee75;
+  }
+  
+  .cancelled{
+    background-color: #f7737375;
+  }
+  
+  .addButton{
+    padding: 10px;
+    background-color: #5d57c9;
+    color: var(--text);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  
+  .top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .button{
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: var(--text);
+    border: none;
+    cursor: pointer;
+  }
+  
+  .buttons{
+    display: flex;
+    gap: 10px;
+  }
+  
+  
+  .view{
+    background-color: teal;
+  }
+  
+  .delete{
+    background-color: crimson;
+  }
+  
+  
+  .table tr:hover {
+    background-color: #2e374a;
+  }

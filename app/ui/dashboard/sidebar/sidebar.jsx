@@ -42,7 +42,7 @@ const menuItems = [
       },
       {
         title: "Media",
-        path: "/dashboard/media",
+        path: "/dashboard/files",
         icon: <MdImage />,
       }
     ],

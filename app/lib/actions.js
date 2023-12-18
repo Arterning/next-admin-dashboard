@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { Product, Transaction, User } from "./models";
+import { Product, Transaction, User, File } from "./models";
 import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
@@ -175,6 +175,28 @@ export const createTransaction = async (formData) => {
     revalidatePath("/dashboard/transactions");
     redirect("/dashboard/transactions");
 }
+
+export const createFile = async (formData) => {
+  const { name, type } =
+    Object.fromEntries(formData);
+    try {
+      connectToDB();
+  
+      const newFile = new File({
+        name,
+        type
+      });
+  
+      await newFile.save();
+    } catch (err) {
+      console.log(err);
+      throw new Error("Failed to create file!");
+    }
+  
+    revalidatePath("/dashboard/files");
+    redirect("/dashboard/files");
+}
+
 
 
 export const deleteTransaction = async (formData) => {
