@@ -188,7 +188,12 @@ export const createFile = async (formData) => {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
 
-  const path = `/tmp/${file.name}`
+  // 为上传的文件生成唯一的文件名
+  const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+  // Extracting the file extension
+  const fileExtension = file.name.split('.').pop();
+
+  const path = `./public/uploads/${uniqueSuffix}.${fileExtension}`
   await writeFile(path, buffer);
   console.log(`open ${path} to see the uploaded file`)
 
@@ -196,6 +201,7 @@ export const createFile = async (formData) => {
   const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // 保留两位小数 1 KB = 1024 Bytes
 
 
+  const url = `/uploads/${uniqueSuffix}.${fileExtension}`
   const { name, type } =
     Object.fromEntries(formData);
     try {
@@ -206,7 +212,7 @@ export const createFile = async (formData) => {
         originalName: file.name,
         type,
         size: fileSizeInKB,
-        url: path
+        url: url
       });
   
       await newFile.save();

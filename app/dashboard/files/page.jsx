@@ -36,7 +36,7 @@ const MediaPage = async ({ searchParams }) => {
                         <td>
                         <div className={styles.user}>
                             <Image
-                                src="/noavatar.png"
+                                src={file.url}
                                 alt=""
                                 width={40}
                                 height={40}
