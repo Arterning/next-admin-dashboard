@@ -4,6 +4,7 @@ import Search from '@/app/ui/dashboard/search/search';
 import Link from 'next/link';
 import Image from 'next/image';
 import Pagination from '@/app/ui/dashboard/pagination/pagination';
+import { deleteFile } from '@/app/lib/actions';
 
 const MediaPage = async ({ searchParams }) => {
 
@@ -55,7 +56,7 @@ const MediaPage = async ({ searchParams }) => {
                                 View
                               </button>
                             </Link>
-                            <form>
+                            <form action={deleteFile}>
                               <input type="hidden" name="id" value={file.id} />
                               <button className={`${styles.button} ${styles.delete}`}>
                                 Delete

@@ -97,6 +97,18 @@ export const fetchFiles = async (q, page) => {
   }
 }
 
+export const fetchFile = async (id) => {
+  try {
+    connectToDB();
+    const file = await File.findById(id);
+    return file;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to fetch file!");
+  }
+}
+
+
 export const fetchProduct = async (id) => {
   try {
     connectToDB();

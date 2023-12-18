@@ -226,6 +226,44 @@ export const createFile = async (formData) => {
 }
 
 
+export const deleteFile = async (formData) => {
+  const { id } = Object.fromEntries(formData);
+  try {
+    connectToDB();
+    await File.findByIdAndDelete(id);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to delete file!");
+  }
+  revalidatePath("/dashboard/files");
+}
+
+
+export const updateFile = async(formData) => {
+  const { id, name, type } =
+    Object.fromEntries(formData);
+    try {
+      connectToDB();
+  
+      const updateFields = {
+        name,
+        type
+      };
+  
+      Object.keys(updateFields).forEach(
+        (key) =>
+          (updateFields[key] === "" || undefined) && delete updateFields[key]
+      );
+  
+      await File.findByIdAndUpdate(id, updateFields);
+    } catch (err) {
+      console.log(err);
+      throw new Error("Failed to update file!");
+    }
+    revalidatePath("/dashboard/files");
+    redirect("/dashboard/files");
+}
+
 
 export const deleteTransaction = async (formData) => {
   const { id } = Object.fromEntries(formData);
