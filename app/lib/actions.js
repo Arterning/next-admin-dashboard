@@ -6,6 +6,7 @@ import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn } from "../auth";
+import { writeFile } from "fs/promises";
 
 export const addUser = async (formData) => {
   const { username, email, password, phone, address, isAdmin, isActive } =
@@ -177,6 +178,20 @@ export const createTransaction = async (formData) => {
 }
 
 export const createFile = async (formData) => {
+
+  const file = formData.get('file');
+
+  if (!file) {
+    throw new Error("NO file uploaded");
+  }
+
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  const path = `/tmp/${file.name}`
+  await writeFile(path, buffer);
+  console.log(`open ${path} to see the uploaded file`)
+
   const { name, type } =
     Object.fromEntries(formData);
     try {
