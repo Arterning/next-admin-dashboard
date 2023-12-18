@@ -98,9 +98,13 @@ const fileSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    type: {
+    originalName: {
       type: String,
       required: true,
+    },
+    type: {
+      type: String,
+      required: false,
     },
     size: {
       type: String,

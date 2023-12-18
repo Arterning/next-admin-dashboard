@@ -6,9 +6,9 @@ const addMediaPage = () => {
     return (
         <div className={styles.container}>
           <form action={createFile} className={styles.form}>
-            <input type="text" placeholder="name" name="name" required />
-            <input type="type" placeholder="type" name="type" required />
-            <input type="file" placeholder="file" name="file"/>
+            <input type="text" placeholder="name" name="name" />
+            <input type="type" placeholder="type" name="type" />
+            <input type="file" placeholder="file" name="file" required/>
             <button type="submit">Submit</button>
           </form>
         </div>

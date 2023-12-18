@@ -192,14 +192,21 @@ export const createFile = async (formData) => {
   await writeFile(path, buffer);
   console.log(`open ${path} to see the uploaded file`)
 
+  const fileSizeInBytes = file.size;
+  const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // 保留两位小数 1 KB = 1024 Bytes
+
+
   const { name, type } =
     Object.fromEntries(formData);
     try {
       connectToDB();
   
       const newFile = new File({
-        name,
-        type
+        name: name || file.name,
+        originalName: file.name,
+        type,
+        size: fileSizeInKB,
+        url: path
       });
   
       await newFile.save();

@@ -24,6 +24,7 @@ const MediaPage = async ({ searchParams }) => {
           <tr>
             <td>Name</td>
             <td>Type</td>
+            <td>Size</td>
             <td>Date</td>
             <td>Action</td>
           </tr>
@@ -45,6 +46,7 @@ const MediaPage = async ({ searchParams }) => {
                         </div>
                         </td>
                         <td>{file.type}</td>
+                        <td>{file.size} KB</td>
                         <td>{file.createdAt?.toString().slice(4, 16)}</td>
                         <td>
                           <div className={styles.buttons}>
