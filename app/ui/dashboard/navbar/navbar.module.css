@@ -4,6 +4,8 @@
   background-color: var(--bgSoft);
   display: flex;
   align-items: center;
+  
+/* 均匀排列每个元素 ，首个元素放置于起点，末尾元素放置于终点 */
   justify-content: space-between;
 }
 
@@ -11,7 +13,7 @@
   color: var(--textSoft);
   font-weight: bold;
   text-transform: capitalize;
-}
+  }
 
 .menu {
   display: flex;

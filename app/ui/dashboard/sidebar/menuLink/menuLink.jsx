@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 
 const MenuLink = ({item}) => {
 
+  // use pathname to store the active menu state is better idea
   const pathname = usePathname()
 
   return (
