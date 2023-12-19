@@ -72,6 +72,7 @@ export const updateUser = async (formData) => {
   redirect("/dashboard/users");
 };
 
+
 export const addProduct = async (formData) => {
   const { title, desc, price, stock, color, size } =
     Object.fromEntries(formData);
@@ -89,6 +90,22 @@ export const addProduct = async (formData) => {
     });
 
     await newProduct.save();
+
+    const { file, fileSizeInKB, url } = await doWriteFile(formData);
+
+    console.log(newProduct.id, newProduct._id);
+
+    const newFile = new File({
+      name: file.name,
+      originalName: file.name,
+      type:"product",
+      size: fileSizeInKB,
+      url: url,
+      pid: newProduct.id
+    });
+
+    await newFile.save();
+
   } catch (err) {
     console.log(err);
     throw new Error("Failed to create product!");
@@ -120,6 +137,24 @@ export const updateProduct = async (formData) => {
     );
 
     await Product.findByIdAndUpdate(id, updateFields);
+
+    // remove files by pid equals to product id
+    // await File.deleteMany({ pid: id });
+
+    const { file, fileSizeInKB, url } = await doWriteFile(formData);
+
+
+    const newFile = new File({
+      name: file.name,
+      originalName: file.name,
+      type:"product",
+      size: fileSizeInKB,
+      url: url,
+      pid: id
+    });
+
+    await newFile.save();
+
   } catch (err) {
     console.log(err);
     throw new Error("Failed to update product!");
@@ -181,29 +216,7 @@ export const createTransaction = async (formData) => {
 
 export const createFile = async (formData) => {
 
-  const file = formData.get('file');
-
-  if (!file) {
-    throw new Error("NO file uploaded");
-  }
-
-  const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
-
-  // 为上传的文件生成唯一的文件名
-  const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-  // Extracting the file extension
-  const fileExtension = file.name.split('.').pop();
-
-  const path = `./public/uploads/${uniqueSuffix}.${fileExtension}`
-  await writeFile(path, buffer);
-  console.log(`open ${path} to see the uploaded file`)
-
-  const fileSizeInBytes = file.size;
-  const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // 保留两位小数 1 KB = 1024 Bytes
-
-
-  const url = `/uploads/${uniqueSuffix}.${fileExtension}`
+  const { file, fileSizeInKB, url } = await doWriteFile(formData);
   const { name, type } =
     Object.fromEntries(formData);
     try {
@@ -225,6 +238,35 @@ export const createFile = async (formData) => {
   
     revalidatePath("/dashboard/files");
     redirect("/dashboard/files");
+
+
+}
+
+async function doWriteFile(formData) {
+  const file = formData.get('file');
+
+  if (!file) {
+    throw new Error("NO file uploaded");
+  }
+
+  const bytes = await file.arrayBuffer();
+  const buffer = Buffer.from(bytes);
+
+  // 为上传的文件生成唯一的文件名
+  const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+  // Extracting the file extension
+  const fileExtension = file.name.split('.').pop();
+
+  const path = `./public/uploads/${uniqueSuffix}.${fileExtension}`;
+  await writeFile(path, buffer);
+  console.log(`open ${path} to see the uploaded file`);
+
+  const fileSizeInBytes = file.size;
+  const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // 保留两位小数 1 KB = 1024 Bytes
+
+
+  const url = `/uploads/${uniqueSuffix}.${fileExtension}`;
+  return { file, fileSizeInKB, url };
 }
 
 

@@ -23,6 +23,7 @@ const AddProductPage = () => {
           rows="16"
           placeholder="Description"
         ></textarea>
+        <input type="file" placeholder="upload file" name="file"/>
         <button type="submit">Submit</button>
       </form>
     </div>

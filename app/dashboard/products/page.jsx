@@ -9,8 +9,15 @@ import { deleteProduct } from "@/app/lib/actions";
 const ProductsPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-  const { count, products } = await fetchProducts(q, page);
+  const { count, products, files } = await fetchProducts(q, page);
 
+  const getThumbnail = (productId) => {
+    //filter files by product id
+    const thumbnail = files.filter(
+      (file) => file.pid === productId
+    )
+    return thumbnail[0]?.url;
+  }
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -36,7 +43,7 @@ const ProductsPage = async ({ searchParams }) => {
               <td>
                 <div className={styles.product}>
                   <Image
-                    src={product.img || "/noproduct.jpg"}
+                    src={getThumbnail(product.id) || "/noproduct.jpg"}
                     alt=""
                     width={40}
                     height={40}

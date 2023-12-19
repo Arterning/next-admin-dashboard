@@ -43,7 +43,10 @@ export const fetchProducts = async (q, page) => {
     const products = await Product.find({ title: { $regex: regex } })
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1));
-    return { count, products };
+
+    //find files by products ids
+    const files = await File.find({ pid: { $in: products.map((product) => product._id) } });
+    return { count, products, files };
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch products!");
@@ -113,7 +116,12 @@ export const fetchProduct = async (id) => {
   try {
     connectToDB();
     const product = await Product.findById(id);
-    return product;
+    //file find by pid
+    const files = await File.find({ pid: id });
+    return {
+      product,
+      files
+    };
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch product!");

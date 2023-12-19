@@ -5,14 +5,18 @@ import Image from "next/image";
 
 const SingleProductPage = async ({ params }) => {
   const { id } = params;
-  const product = await fetchProduct(id);
+  const {product, files} = await fetchProduct(id);
 
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
-        <div className={styles.imgContainer}>
-          <Image src="/noavatar.png" alt="" fill />
-        </div>
+        {
+          files.map((file) => (
+            <div className={styles.imgContainer} key={file.id}>
+              <Image src={file.url} alt="" fill />
+            </div>
+          ))
+        }
         {product.title}
       </div>
       <div className={styles.formContainer}>
@@ -48,6 +52,8 @@ const SingleProductPage = async ({ params }) => {
             rows="10"
             placeholder={product.desc}
           ></textarea>
+          <label>Upload Product File</label>
+          <input type="file" placeholder="upload file" name="file"/>
           <button>Update</button>
         </form>
       </div>
