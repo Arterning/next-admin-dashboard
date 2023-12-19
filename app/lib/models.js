@@ -123,6 +123,36 @@ const fileSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
+const taskSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: false
+    },
+    date: {
+      type: String,
+      required: false
+    },
+    isCompleted: {
+      type: Boolean,
+      default: false
+    },
+    isImportant: {
+      type: Boolean,
+      default: false
+    },
+    userID: {
+      type: String,
+      required: true
+    }
+  },
+  { timestamps: true }
+)
+
 
 export const User = 
   mongoose.models.User || mongoose.model("User", userSchema);
@@ -134,3 +164,5 @@ export const Transaction =
   mongoose.models.Transaction || mongoose.model("Transaction", transactionSchema);
 
 export const File = mongoose.models.File || mongoose.model("File", fileSchema)
+
+export const Task = mongoose.models.Task || mongoose.model("Task", taskSchema)
