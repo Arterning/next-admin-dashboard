@@ -140,6 +140,15 @@ export const updateProduct = async (formData) => {
 
     // remove files by pid equals to product id
     // await File.deleteMany({ pid: id });
+    const files = await File.find({ pid: id });
+    //loop files and remove it
+    for (let file of files) {
+      const url = file.url;
+      const path = url.replace('/uploads','./public/uploads');
+      // 尝试删除文件
+      await unlink(path);
+      await File.findByIdAndDelete(file.id);
+    }
 
     const { file, fileSizeInKB, url } = await doWriteFile(formData);
 
