@@ -17,7 +17,6 @@ const SingleProductPage = async ({ params }) => {
               <Image src={file.url} alt="" fill />
             </div>
           ))
-          
         }
         {
           //if files array is empty, show default thumbnail
