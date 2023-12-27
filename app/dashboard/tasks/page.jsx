@@ -14,12 +14,13 @@ const TaskPage = async ({ searchParams }) => {
         return {
             id: task.id,
             title: task.title,
-            description: task.description
+            description: task.description,
+            isCompleted: task.isCompleted ? "Finished" : "Doing",
+            isImportant: task.isImportant ? "Important" : "Normal"
         }
     })
 
-    console.log(tableData);
-
+    // console.log(tableData);
 
     return (
         <div className={styles.container}>
