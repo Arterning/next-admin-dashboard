@@ -9,6 +9,7 @@ import { signIn } from "../auth";
 import { writeFile } from "fs/promises";
 import { unlink } from 'fs/promises';
 import { deleteMinioFile, putMinioFile } from "./minio";
+import { log } from "console";
 
 
 export const addUser = async (formData) => {
@@ -127,7 +128,7 @@ export const updateProduct = async (formData) => {
         (updateFields[key] === "" || undefined) && delete updateFields[key]
     );
 
-    await updateAttachement(id, formData);
+    await createAttachement(formData, id);
 
     await Product.findByIdAndUpdate(id, updateFields);
 
@@ -219,6 +220,13 @@ export const createFile = async (formData) => {
 }
 
 async function createAttachement(formData, id) {
+
+  //if the upload file is empty, return
+  if (formData.get('file')?.size == 0) {
+    log("empty file");
+    return;
+  }
+
   const { file, fileSizeInKB, url } = await doWriteFile(formData);
 
 
