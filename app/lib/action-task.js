@@ -5,6 +5,23 @@ import { Task } from "./models";
 import { connectToDB } from "./utils";
 import { redirect } from "next/navigation";
 
+export const deleteTask = async (formData) => {
+
+    const { id } = Object.fromEntries(formData);
+
+    try {
+        connectToDB();
+        await Task.findByIdAndDelete(id);
+    } catch (error) {
+        console.log(error);
+        throw new Error("Failed to delete task!");
+    }
+
+    revalidatePath("/dashboard/tasks");
+    redirect("/dashboard/tasks");
+};
+
+
 export const readAllTasks = async (q, page) => {
     const regex = new RegExp(q, "i");
 

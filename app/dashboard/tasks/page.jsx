@@ -2,7 +2,7 @@ import { NingTable } from "@/app/ui/dashboard/table/table";
 import styles from './page.module.css';
 import Search from "@/app/ui/dashboard/search/search";
 import Link from "next/link";
-import { readAllTasks } from "@/app/lib/action-task";
+import { deleteTask, readAllTasks } from "@/app/lib/action-task";
 
 const TaskPage = async ({ searchParams }) => {
 
@@ -30,7 +30,11 @@ const TaskPage = async ({ searchParams }) => {
                     <button className={styles.addButton}>Add New</button>
                 </Link>
             </div>
-            <NingTable count={count} data={tableData} viewUrl={"/dashboard/tasks/"}/>
+            <NingTable 
+                count={count} 
+                data={tableData} 
+                viewUrl={"/dashboard/tasks/"}
+                deleteAction={deleteTask}/>
         </div>
     )
 }
