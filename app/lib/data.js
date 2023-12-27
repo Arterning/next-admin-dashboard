@@ -12,7 +12,10 @@ export const fetchUsers = async (q, page) => {
     const users = await User.find({ username: { $regex: regex } })
       .limit(ITEM_PER_PAGE)
       .skip(ITEM_PER_PAGE * (page - 1));
-    return { count, users };
+    //find files by products ids
+    const files = await File.find({ pid: { $in: users.map((product) => product._id) } });
+  
+    return { count, users, files };
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch users!");
@@ -24,7 +27,12 @@ export const fetchUser = async (id) => {
   try {
     connectToDB();
     const user = await User.findById(id);
-    return user;
+    //file find by pid
+    const files = await File.find({ pid: id });
+    return {
+      user,
+      files
+    };
   } catch (err) {
     console.log(err);
     throw new Error("Failed to fetch user!");

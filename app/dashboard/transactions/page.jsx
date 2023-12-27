@@ -35,13 +35,15 @@ const TransactionsPage = async ({ searchParams }) => {
                     <tr key={transaction.id}>
                         <td>
                         <div className={styles.user}>
+                            {/*
+                            TODO: find a good money svg to replace
                             <Image
                                 src="/noavatar.png"
                                 alt=""
                                 width={40}
                                 height={40}
                                 className={styles.userImage}
-                            />
+                            /> */}
                             {transaction.name}
                         </div>
                         </td>

@@ -34,6 +34,7 @@ const AddUserPage = () => {
           rows="16"
           placeholder="Address"
         ></textarea>
+        <input type="file" placeholder="upload file" name="file"/>
         <button type="submit">Submit</button>
       </form>
     </div>

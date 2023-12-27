@@ -9,7 +9,18 @@ import Link from "next/link";
 const UsersPage = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
-  const { count, users } = await fetchUsers(q, page);
+  const { count, users, files } = await fetchUsers(q, page);
+
+  const getThumbnail = (productId) => {
+    //filter files by product id
+    const thumbnail = files.filter(
+      (file) => file.pid === productId
+    )
+    console.log(thumbnail);
+    const result = thumbnail[0]?.url || "/noavatar.png";
+    console.log(result);
+    return result;
+  }
 
   return (
     <div className={styles.container}>
@@ -36,7 +47,7 @@ const UsersPage = async ({ searchParams }) => {
               <td>
                 <div className={styles.user}>
                   <Image
-                    src={user.img || "/noavatar.png"}
+                    src={getThumbnail(user.id)}
                     alt=""
                     width={40}
                     height={40}

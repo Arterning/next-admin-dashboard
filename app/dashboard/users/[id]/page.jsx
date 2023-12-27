@@ -6,14 +6,27 @@ import Image from "next/image";
 const SingleUserPage = async ({ params }) => {
   
   const { id } = params;
-  const user = await fetchUser(id);
+  const {user, files} = await fetchUser(id);
 
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
-        <div className={styles.imgContainer}>
-          <Image src={user.img || "/noavatar.png"} alt="" fill />
-        </div>
+      {
+          //if files array is not empty
+          files.length !== 0 && files.map((file) => (
+            <div className={styles.imgContainer} key={file.id}>
+              <Image src={file.url} alt="" fill />
+            </div>
+          ))
+        }
+        {
+          //if files array is empty, show default thumbnail
+          files.length === 0 && (
+            <div className={styles.imgContainer}>
+              <Image src="/noavatar.png" alt="" fill />
+            </div>
+          )
+        }
         {user.username}
       </div>
       <div className={styles.formContainer}>
@@ -39,6 +52,7 @@ const SingleUserPage = async ({ params }) => {
             <option value={true} selected={user.isActive}>Yes</option>
             <option value={false} selected={!user.isActive}>No</option>
           </select>
+          <input type="file" placeholder="upload file" name="file"/>
           <button>Update</button>
         </form>
       </div>

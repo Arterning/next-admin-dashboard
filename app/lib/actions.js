@@ -31,6 +31,7 @@ export const addUser = async (formData) => {
       isActive,
     });
 
+    await createAttachement(formData, newUser._id);
     await newUser.save();
   } catch (err) {
     console.log(err);
@@ -63,6 +64,8 @@ export const updateUser = async (formData) => {
         (updateFields[key] === "" || undefined) && delete updateFields[key]
     );
 
+    await updateAttachement(id, formData);
+
     await User.findByIdAndUpdate(id, updateFields);
   } catch (err) {
     console.log(err);
@@ -92,20 +95,7 @@ export const addProduct = async (formData) => {
 
     await newProduct.save();
 
-    const { file, fileSizeInKB, url } = await doWriteFile(formData);
-
-    console.log(newProduct.id, newProduct._id);
-
-    const newFile = new File({
-      name: file.name,
-      originalName: file.name,
-      type:"product",
-      size: fileSizeInKB,
-      url: url,
-      pid: newProduct.id
-    });
-
-    await newFile.save();
+    await createAttachement(formData, newProduct.id);
 
   } catch (err) {
     console.log(err);
@@ -137,33 +127,9 @@ export const updateProduct = async (formData) => {
         (updateFields[key] === "" || undefined) && delete updateFields[key]
     );
 
+    await updateAttachement(id, formData);
+
     await Product.findByIdAndUpdate(id, updateFields);
-
-    // remove files by pid equals to product id
-    // await File.deleteMany({ pid: id });
-    const files = await File.find({ pid: id });
-    //loop files and remove it
-    for (let file of files) {
-      const url = file.url;
-      const path = url.replace('/uploads','./public/uploads');
-      // 尝试删除文件
-      await unlink(path);
-      await File.findByIdAndDelete(file.id);
-    }
-
-    const { file, fileSizeInKB, url } = await doWriteFile(formData);
-
-
-    const newFile = new File({
-      name: file.name,
-      originalName: file.name,
-      type:"product",
-      size: fileSizeInKB,
-      url: url,
-      pid: id
-    });
-
-    await newFile.save();
 
   } catch (err) {
     console.log(err);
@@ -250,6 +216,51 @@ export const createFile = async (formData) => {
     redirect("/dashboard/files");
 
 
+}
+
+async function createAttachement(formData, id) {
+  const { file, fileSizeInKB, url } = await doWriteFile(formData);
+
+
+  const newFile = new File({
+    name: file.name,
+    originalName: file.name,
+    type: "product",
+    size: fileSizeInKB,
+    url: url,
+    pid: id
+  });
+
+  await newFile.save();
+}
+
+async function updateAttachement(id, formData) {
+
+  // remove files by pid equals to product id
+  // await File.deleteMany({ pid: id });
+  const files = await File.find({ pid: id });
+  //loop files and remove it
+  for (let file of files) {
+    const url = file.url;
+    const path = url.replace('/uploads', './public/uploads');
+    // 尝试删除文件
+    await unlink(path);
+    await File.findByIdAndDelete(file.id);
+  }
+
+  const { file, fileSizeInKB, url } = await doWriteFile(formData);
+
+
+  const newFile = new File({
+    name: file.name,
+    originalName: file.name,
+    type: "product",
+    size: fileSizeInKB,
+    url: url,
+    pid: id
+  });
+
+  await newFile.save();
 }
 
 async function doWriteFile(formData, minioUpload = true) {
