@@ -13,6 +13,7 @@ import {
   MdOutlineSettings,
   MdHelpCenter,
   MdLogout,
+  MdReadMore,
 } from "react-icons/md";
 import { auth, signOut } from "@/app/auth";
 
@@ -26,6 +27,16 @@ const menuItems = [
         icon: <MdDashboard />,
       },
       {
+        title: "Transactions",
+        path: "/dashboard/transactions",
+        icon: <MdAttachMoney />,
+      },
+      {
+        title: "Tasks",
+        path: "/dashboard/tasks",
+        icon: <MdReadMore />,
+      },
+      {
         title: "Users",
         path: "/dashboard/users",
         icon: <MdSupervisedUserCircle />,
@@ -34,11 +45,6 @@ const menuItems = [
         title: "Products",
         path: "/dashboard/products",
         icon: <MdShoppingBag />,
-      },
-      {
-        title: "Transactions",
-        path: "/dashboard/transactions",
-        icon: <MdAttachMoney />,
       },
       {
         title: "Media",
