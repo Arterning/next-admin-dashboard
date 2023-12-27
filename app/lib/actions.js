@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 import { signIn } from "../auth";
 import { writeFile } from "fs/promises";
 import { unlink } from 'fs/promises';
-import { putMinioFile } from "./minio";
+import { deleteMinioFile, putMinioFile } from "./minio";
 
 
 export const addUser = async (formData) => {
@@ -292,9 +292,13 @@ export const deleteFile = async (formData) => {
     const file = await File.findById(id);
     const url = file.url;
 
-    const path = url.replace('/uploads','./public/uploads');
-    // 尝试删除文件
-    await unlink(path);
+    if (url.indexOf('/uploads') !== -1) {
+      const path = url.replace('/uploads','./public/uploads');
+      // 尝试删除文件
+      await unlink(path);
+    } else {
+      await deleteMinioFile(url);
+    }
 
     await File.findByIdAndDelete(id);
   } catch (err) {

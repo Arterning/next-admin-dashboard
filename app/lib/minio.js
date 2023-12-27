@@ -45,3 +45,14 @@ export async function putMinioFile(file) {
       throw new Error(`Minio upload error: ${error}`);
     }
 }
+
+
+export async function deleteMinioFile(url) {
+  const client = buildMinioClient();
+  const { bucket } = minioConfig;
+  const objectName = url.split('/')[url.split('/').length - 1];
+  await client.removeObject(bucket, objectName, {});
+  return {
+    url
+  };
+}
