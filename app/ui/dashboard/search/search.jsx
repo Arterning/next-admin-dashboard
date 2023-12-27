@@ -21,7 +21,7 @@ const Search = ({ placeholder }) => {
       params.delete("q");
     }
     replace(`${pathname}?${params}`);
-  }, 300);
+  }, 100);
 
   return (
     <div className={styles.container}>
