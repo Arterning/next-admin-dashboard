@@ -12,3 +12,8 @@ export const connectToDB = async () => {
     throw new Error(error);
   }
 };
+
+
+export const sum = (a, b) => {
+  return a + b;
+}
