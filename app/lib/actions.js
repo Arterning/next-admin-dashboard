@@ -8,6 +8,7 @@ import bcrypt from "bcrypt";
 import { signIn } from "../auth";
 import { writeFile } from "fs/promises";
 import { unlink } from 'fs/promises';
+import { putMinioFile } from "./minio";
 
 
 export const addUser = async (formData) => {
@@ -251,11 +252,16 @@ export const createFile = async (formData) => {
 
 }
 
-async function doWriteFile(formData) {
+async function doWriteFile(formData, minioUpload = true) {
   const file = formData.get('file');
 
   if (!file) {
     throw new Error("NO file uploaded");
+  }
+
+  if (minioUpload) {
+    const result = await putMinioFile(file);
+    return result;
   }
 
   const bytes = await file.arrayBuffer();
@@ -269,12 +275,12 @@ async function doWriteFile(formData) {
   const path = `./public/uploads/${uniqueSuffix}.${fileExtension}`;
   await writeFile(path, buffer);
   console.log(`open ${path} to see the uploaded file`);
+  const url = `/uploads/${uniqueSuffix}.${fileExtension}`;
+
 
   const fileSizeInBytes = file.size;
   const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2); // 保留两位小数 1 KB = 1024 Bytes
 
-
-  const url = `/uploads/${uniqueSuffix}.${fileExtension}`;
   return { file, fileSizeInKB, url };
 }
 
