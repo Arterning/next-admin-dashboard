@@ -6,7 +6,9 @@ export async function GET() {
 
     connectToDB();
 
-    const tasks = await Task.find({});
+    //find latest 3 task order by createAt
+    
+    const tasks = await Task.find({}).sort({ createdAt: -1 }).limit(3);
 
     return Response.json({ tasks });
 

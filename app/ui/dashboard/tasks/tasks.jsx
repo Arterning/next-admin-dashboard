@@ -39,7 +39,7 @@ const TaskCard = ({ task }) => {
           <span className={styles.taskCardTitle}>{task.title}</span>
           <span className={styles.taskCardCenter}>{task.description}</span>
           <span className={styles.taskCardDetail}>
-            Detail
+            {task.isCompleted ? "Completed" : "Pending"}
           </span>
         </div>
       </div>
