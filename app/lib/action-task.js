@@ -60,10 +60,13 @@ export const queryTask = async (id) => {
 
 
 export const createOrUpdateTask = async (formData) => {
-
-    if (formData.id) {
+    const data = Object.fromEntries(formData)
+    const { id } = data
+    if (id) {
+        console.log("UPDATE");
         updateTask(formData)
     } else {
+        console.log("CREATE");
         createTask(formData)
     }
 
