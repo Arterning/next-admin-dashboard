@@ -3,6 +3,7 @@ import Card from "../ui/dashboard/card/card";
 import Chart from "../ui/dashboard/chart/chart";
 import styles from "../ui/dashboard/dashboard.module.css";
 import Rightbar from "../ui/dashboard/rightbar/rightbar";
+import { LatestTasks } from "../ui/dashboard/tasks/tasks";
 import Transactions from "../ui/dashboard/transactions/transactions";
 
 const Dashboard = () => {
@@ -15,6 +16,7 @@ const Dashboard = () => {
           ))}
         </div>
         <Transactions />
+        <LatestTasks/>
         <Chart />
       </div>
       <div className={styles.side}>
