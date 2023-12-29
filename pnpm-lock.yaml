@@ -8,6 +8,9 @@ dependencies:
   '@next/eslint-plugin-next':
     specifier: 14.0.1
     version: registry.npmmirror.com/@next/eslint-plugin-next@14.0.1
+  '@tanstack/react-query':
+    specifier: ^5.15.0
+    version: registry.npmmirror.com/@tanstack/react-query@5.15.0(react@18.2.0)
   bcrypt:
     specifier: 5.1.1
     version: registry.npmmirror.com/bcrypt@5.1.1
@@ -346,6 +349,24 @@ packages:
     version: 0.5.2
     dependencies:
       tslib: registry.npmmirror.com/tslib@2.6.2
+    dev: false
+
+  registry.npmmirror.com/@tanstack/query-core@5.14.2:
+    resolution: {integrity: sha512-QmoJvC72sSWs3hgGis8JdmlDvqLfYGWUK4UG6OR9Q6t28JMN9m2FDwKPqoSJ9YVocELCSjMt/FGjEiLfk8000Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@tanstack/query-core/-/query-core-5.14.2.tgz}
+    name: '@tanstack/query-core'
+    version: 5.14.2
+    dev: false
+
+  registry.npmmirror.com/@tanstack/react-query@5.15.0(react@18.2.0):
+    resolution: {integrity: sha512-hWLuZ2Hg9HzmHJ3VtWzhvK+sTxPz+rIIujYUxzapPoU9PPXe7NCm8k8EaKpm+Sc65FM7Dljfk/Ov9yYMhwg9vw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@tanstack/react-query/-/react-query-5.15.0.tgz}
+    id: registry.npmmirror.com/@tanstack/react-query/5.15.0
+    name: '@tanstack/react-query'
+    version: 5.15.0
+    peerDependencies:
+      react: ^18.0.0
+    dependencies:
+      '@tanstack/query-core': registry.npmmirror.com/@tanstack/query-core@5.14.2
+      react: registry.npmmirror.com/react@18.2.0
     dev: false
 
   registry.npmmirror.com/@types/d3-array@3.2.1:
