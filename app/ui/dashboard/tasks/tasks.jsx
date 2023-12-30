@@ -4,7 +4,7 @@ import fetcher from '@/app/lib/fetcher';
 import { useQuery } from '@tanstack/react-query';
 import styles from "./tasks.module.css";
 import React from 'react';
-import { MdSupervisedUserCircle } from 'react-icons/md';
+import { MdTask } from 'react-icons/md';
 export const LatestTasks = () => {
 
     const { data, error, isLoading } = useQuery({
@@ -34,7 +34,7 @@ export const LatestTasks = () => {
 const TaskCard = ({ task }) => {
   return (
       <div className={styles.taskCard}>
-        <MdSupervisedUserCircle size={24} />
+        <MdTask size={24} />
         <div className={styles.taskCardText}>
           <span className={styles.taskCardTitle}>{task.title}</span>
           <span className={styles.taskCardCenter}>{task.description}</span>

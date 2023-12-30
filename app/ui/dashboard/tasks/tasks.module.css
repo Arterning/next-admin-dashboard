@@ -45,6 +45,7 @@
   .taskCardCenter {
     font-size: 24px;
     font-weight: 500;
+    text-overflow: ellipsis;
   }
 
   .taskCardDetail {
