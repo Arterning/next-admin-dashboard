@@ -1,5 +1,6 @@
 import { createOrUpdateTask, queryTask } from "@/app/lib/action-task";
 import styles from "./page.module.css"
+import ButtonGroup from "./_components/button-group";
 
 
 const SingleTaskPage = async ({ params }) => {
@@ -7,6 +8,7 @@ const SingleTaskPage = async ({ params }) => {
     const { id } = params;
 
     const task = await queryTask(id);
+
 
     return (
         <div className={styles.container}>
@@ -23,7 +25,7 @@ const SingleTaskPage = async ({ params }) => {
                     <input type="checkbox" name="isImportant"/>
                     <label>Is Completed</label>
                     <input type="checkbox" name="isCompleted"/>
-                    <button type="submit">Submit</button>
+                    <ButtonGroup/>
                 </form>
             </div>
         </div>
