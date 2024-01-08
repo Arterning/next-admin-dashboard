@@ -1,8 +1,13 @@
-// TODO
+import { LandingHero } from "@/components/landing-hero";
+import { LandingNavbar } from "@/components/landing-navbar";
+
 const Homepage = () => {
   return (
-    <div>Homepage</div>
-  )
-}
+    <div className="p-8">
+        <LandingNavbar/>
+        <LandingHero/>
+    </div>
+  );
+};
 
-export default Homepage
+export default Homepage;
