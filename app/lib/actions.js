@@ -10,6 +10,7 @@ import { writeFile } from "fs/promises";
 import { unlink } from 'fs/promises';
 import { deleteMinioFile, putMinioFile } from "./minio";
 import { log } from "console";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 
 export const addUser = async (formData) => {
@@ -404,7 +405,15 @@ export const authenticate = async (prevState, formData) => {
 
   try {
     await signIn("credentials", { username, password });
+    return "Success!";
   } catch (err) {
-    return "Wrong Credentials!";
+
+    // https://github.com/nextauthjs/next-auth/discussions/9389
+    console.log(err);
+    if (isRedirectError(err)) {
+      throw err;
+    } else {
+      return "Wrong Credentials!";
+    }
   }
 };

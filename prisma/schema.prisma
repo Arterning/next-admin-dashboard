@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model files {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  v            Int      @map("__v")
+  createdAt    DateTime @db.Date
+  name         String
+  originalName String
+  pid          String?
+  size         String
+  type         String
+  updatedAt    DateTime @db.Date
+  url          String
+}
+
+model next_admin {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  @@map("next-admin")
+}
+
+model products {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  v         Int      @map("__v")
+  color     String
+  createdAt DateTime @db.Date
+  desc      String
+  price     Int
+  size      String
+  stock     Int
+  title     String   @unique(map: "title_1")
+  updatedAt DateTime @db.Date
+}
+
+model tasks {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  v           Int      @map("__v")
+  createdAt   DateTime @db.Date
+  date        String
+  description String
+  isCompleted Boolean
+  isImportant Boolean
+  title       String
+  updatedAt   DateTime @db.Date
+  userID      String
+}
+
+model transactions {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  v         Int      @map("__v")
+  amount    String
+  createdAt DateTime @db.Date
+  name      String
+  status    String
+  updatedAt DateTime @db.Date
+}
+
+model users {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  v         Int?      @map("__v")
+  address   String
+  createdAt DateTime? @db.Date
+  email     String    @unique(map: "email_1")
+  img       String?
+  isActive  Boolean
+  isAdmin   Boolean
+  password  String
+  /// Multiple data types found: String: 75%, Int: 25% out of 4 sampled entries
+  phone     Json
+  updatedAt DateTime  @db.Date
+  username  String    @unique(map: "username_1")
+}
